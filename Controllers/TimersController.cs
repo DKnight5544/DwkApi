@@ -68,5 +68,18 @@ namespace DwkApi.Controllers
             }
         }
 
+
+        [Route("api/timers/AdjustTimer")]
+        [HttpPost]
+        public TimerPage AdjustTimer(Timer tmr)
+        {
+            string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
+            using (DWKDBDataContext db = new DWKDBDataContext(connStr))
+            {
+                var result = db.AdjustTimer(tmr.TimerKey, tmr.ElapsedTime).SingleOrDefault();
+                return result;
+            }
+        }
+
     }
 }
