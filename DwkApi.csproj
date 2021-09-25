@@ -127,6 +127,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TT2.cs" />
     <Compile Include="Controllers\TimersController.cs" />
     <Compile Include="DWKDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -136,7 +137,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdjustParms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TT2.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TT2.dbml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -153,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DWKDB.dbml">
@@ -168,6 +174,14 @@
     <None Include="Properties\PublishProfiles\dwkapi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dwkapi - ReadOnly - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\dwkapi - Web Deploy.pubxml" />
+    <Content Include="TT2.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>TT2.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="TT2.dbml.layout">
+      <DependentUpon>TT2.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

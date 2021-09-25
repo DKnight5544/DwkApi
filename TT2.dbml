@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dwk-multiple-projects" Class="TT2DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=dwk-sql-server-01.database.windows.net;Initial Catalog=dwk-multiple-projects;User ID=TimerToysApp" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="dwk_multiple_projectsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="tt2.TimerModel" Member="TimerModels">
+    <Type Name="TimerModel" Id="ID1">
+      <Column Name="TimerKey" Type="System.String" DbType="Char(36)" CanBeNull="true" />
+      <Column Name="TimerName" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="IsRunning" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ChildrenCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreationTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ElapsedTime" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsReadOnly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="tt2.AddRootTimer" Method="AddRootTimer">
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="tt2.AddTimer" Method="AddTimer">
+    <Parameter Name="ParentKey" Parameter="parentKey" Type="System.String" DbType="Char(36)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="tt2.GetChildren" Method="GetChildren">
+    <Parameter Name="Key" Parameter="key" Type="System.String" DbType="Char(36)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="tt2.GetTimer" Method="GetTimer">
+    <Parameter Name="Key" Parameter="key" Type="System.String" DbType="Char(36)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="tt2.ToggleTimer" Method="ToggleTimer">
+    <Parameter Name="TimerKey" Parameter="timerKey" Type="System.String" DbType="Char(36)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="tt2.AdjustTimer" Method="AdjustTimer">
+    <Parameter Name="Key" Parameter="key" Type="System.String" DbType="Char(36)" />
+    <Parameter Name="Seconds" Parameter="seconds" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="tt2.DeleteTimer" Method="DeleteTimer">
+    <Parameter Name="Key" Parameter="key" Type="System.String" DbType="Char(36)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="tt2.RenameTimer" Method="RenameTimer">
+    <Parameter Name="Key" Parameter="key" Type="System.String" DbType="Char(36)" />
+    <Parameter Name="NewName" Parameter="newName" Type="System.String" DbType="NVarChar(150)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="tt2.ResetTimer" Method="ResetTimer">
+    <Parameter Name="Key" Parameter="key" Type="System.String" DbType="Char(36)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+</Database>
