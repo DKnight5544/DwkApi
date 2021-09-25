@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using TimerToysShared.Model;
 
 namespace DwkApi.Controllers
 {
@@ -31,6 +29,55 @@ namespace DwkApi.Controllers
             using (DWKDBDataContext db = new DWKDBDataContext(connStr))
             {
                 return db.SelectAllByPage(id).ToArray();
+            }
+        }
+
+
+        [Route("api/timers/UpdatePageName")]
+        [HttpPost]
+        public void UpdatePageName(Timer tmr)
+        {
+            string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
+            using (DWKDBDataContext db = new DWKDBDataContext(connStr))
+            {
+                db.UpdatePageName(tmr.PageKey, tmr.PageName);
+            }
+        }
+
+
+        [Route("api/timers/UpdateTimerName")]
+        [HttpPost]
+        public void UpdateTimerName(Timer tmr)
+        {
+            string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
+            using (DWKDBDataContext db = new DWKDBDataContext(connStr))
+            {
+                var result = db.UpdateTimerName(tmr.TimerKey, tmr.TimerDescription);
+            }
+        }
+
+
+        [Route("api/timers/ToggleTimer/{id}")]
+        [HttpGet]
+        public TimerPage ToggleTimer(string id)
+        {
+            string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
+            using (DWKDBDataContext db = new DWKDBDataContext(connStr))
+            {
+                return db.ToggleTimer(id).SingleOrDefault();
+            }
+        }
+
+
+        [Route("api/timers/AdjustTimer")]
+        [HttpPost]
+        public TimerPage AdjustTimer(Timer tmr)
+        {
+            string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
+            using (DWKDBDataContext db = new DWKDBDataContext(connStr))
+            {
+                var result = db.AdjustTimer(tmr.TimerKey, tmr.ElapsedTime).SingleOrDefault();
+                return result;
             }
         }
 
