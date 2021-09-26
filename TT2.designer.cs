@@ -152,6 +152,8 @@ namespace DwkApi
 		
 		private System.Nullable<bool> _IsReadOnly;
 		
+		private string _ReadOnlyKey;
+		
 		public TimerModel()
 		{
 		}
@@ -205,7 +207,7 @@ namespace DwkApi
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChildrenCount", DbType="Int")]
-		public System.Nullable<int> ChildrenCount
+		public System.Nullable<int> ChildCount
 		{
 			get
 			{
@@ -264,6 +266,22 @@ namespace DwkApi
 				if ((this._IsReadOnly != value))
 				{
 					this._IsReadOnly = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReadOnlyKey", DbType="char(36)", CanBeNull=false)]
+		public string ReadOnlyKey
+		{
+			get
+			{
+				return this._ReadOnlyKey;
+			}
+			set
+			{
+				if ((this._ReadOnlyKey != value))
+				{
+					this._ReadOnlyKey = value;
 				}
 			}
 		}
