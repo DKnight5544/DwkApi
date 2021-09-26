@@ -84,27 +84,6 @@ namespace DwkApi
 			return ((ISingleResult<TimerModel>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.GetChildren")]
-		public ISingleResult<TimerModel> GetChildren([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Key", DbType="Char(36)")] string key)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), key);
-			return ((ISingleResult<TimerModel>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.GetTimer")]
-		public ISingleResult<TimerModel> GetTimer([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Key", DbType="Char(36)")] string key)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), key);
-			return ((ISingleResult<TimerModel>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.ToggleTimer")]
-		public ISingleResult<TimerModel> ToggleTimer([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TimerKey", DbType="Char(36)")] string timerKey)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), timerKey);
-			return ((ISingleResult<TimerModel>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.AdjustTimer")]
 		public ISingleResult<TimerModel> AdjustTimer([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Key", DbType="Char(36)")] string key, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Seconds", DbType="Int")] System.Nullable<int> seconds)
 		{
@@ -113,10 +92,24 @@ namespace DwkApi
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.DeleteTimer")]
-		public int DeleteTimer([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Key", DbType="Char(36)")] string key)
+		public ISingleResult<TimerModel> DeleteTimer([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Key", DbType="Char(36)")] string key)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), key);
-			return ((int)(result.ReturnValue));
+			return ((ISingleResult<TimerModel>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.GetChildren")]
+		public ISingleResult<TimerModel> GetChildren([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ParentKey", DbType="Char(36)")] string parentKey)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), parentKey);
+			return ((ISingleResult<TimerModel>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.GetTimer")]
+		public ISingleResult<TimerModel> GetTimer([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TimerKey", DbType="Char(36)")] string timerKey)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), timerKey);
+			return ((ISingleResult<TimerModel>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.RenameTimer")]
@@ -132,6 +125,13 @@ namespace DwkApi
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), key);
 			return ((ISingleResult<TimerModel>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tt2.ToggleTimer")]
+		public ISingleResult<TimerModel> ToggleTimer([global::System.Data.Linq.Mapping.ParameterAttribute(Name="TimerKey", DbType="Char(36)")] string timerKey)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), timerKey);
+			return ((ISingleResult<TimerModel>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="tt2.TimerModel")]
@@ -140,19 +140,19 @@ namespace DwkApi
 		
 		private string _TimerKey;
 		
+		private string _ReadOnlyKey;
+		
 		private string _TimerName;
 		
 		private System.Nullable<bool> _IsRunning;
 		
-		private System.Nullable<int> _ChildrenCount;
+		private System.Nullable<int> _ChildCount;
 		
 		private System.Nullable<System.DateTime> _CreationTime;
 		
 		private System.Nullable<int> _ElapsedTime;
 		
 		private System.Nullable<bool> _IsReadOnly;
-		
-		private string _ReadOnlyKey;
 		
 		public TimerModel()
 		{
@@ -174,7 +174,23 @@ namespace DwkApi
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimerName", DbType="VarChar(150)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReadOnlyKey", DbType="Char(36)")]
+		public string ReadOnlyKey
+		{
+			get
+			{
+				return this._ReadOnlyKey;
+			}
+			set
+			{
+				if ((this._ReadOnlyKey != value))
+				{
+					this._ReadOnlyKey = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimerName", DbType="NVarChar(150)")]
 		public string TimerName
 		{
 			get
@@ -206,18 +222,18 @@ namespace DwkApi
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChildrenCount", DbType="Int")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChildCount", DbType="Int")]
 		public System.Nullable<int> ChildCount
 		{
 			get
 			{
-				return this._ChildrenCount;
+				return this._ChildCount;
 			}
 			set
 			{
-				if ((this._ChildrenCount != value))
+				if ((this._ChildCount != value))
 				{
-					this._ChildrenCount = value;
+					this._ChildCount = value;
 				}
 			}
 		}
@@ -266,22 +282,6 @@ namespace DwkApi
 				if ((this._IsReadOnly != value))
 				{
 					this._IsReadOnly = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReadOnlyKey", DbType="char(36)", CanBeNull=false)]
-		public string ReadOnlyKey
-		{
-			get
-			{
-				return this._ReadOnlyKey;
-			}
-			set
-			{
-				if ((this._ReadOnlyKey != value))
-				{
-					this._ReadOnlyKey = value;
 				}
 			}
 		}

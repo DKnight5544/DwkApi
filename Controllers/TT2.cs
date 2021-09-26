@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
-using DwkApi.TT2.Model;
+using DwkApi.Model.TT2;
 
 namespace DwkApi.Controllers
 {

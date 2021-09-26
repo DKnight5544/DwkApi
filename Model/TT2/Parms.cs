@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DwkApi.TT2.Model
+namespace DwkApi.Model.TT2
 {
     public class AdjustParms
     {
