@@ -13,8 +13,9 @@ namespace DwkApi.Controllers
         [HttpGet]
         public TimerModel AddRootTimer()
         {
+            //https://localhost:44313/api/tt2/AddRootTimer
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 return tt2.AddRootTimer().SingleOrDefault();
             }
@@ -25,7 +26,7 @@ namespace DwkApi.Controllers
         public TimerModel AddTimer(string id)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 return tt2.AddTimer(id).SingleOrDefault();
             }
@@ -36,7 +37,7 @@ namespace DwkApi.Controllers
         public TimerModel GetTimer(string id)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 var result = tt2.GetTimer(id).SingleOrDefault();
                 return result;
@@ -48,7 +49,7 @@ namespace DwkApi.Controllers
         public TimerModel[] GetChildren(string id)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 var result = tt2.GetChildren(id).ToArray();
                 return result;
@@ -61,7 +62,7 @@ namespace DwkApi.Controllers
         public TimerModel ToggleTimer(string id)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 return tt2.ToggleTimer(id).SingleOrDefault();
             }
@@ -72,7 +73,7 @@ namespace DwkApi.Controllers
         public void DeleteTimer(string id)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 tt2.DeleteTimer(id);
             }
@@ -83,7 +84,7 @@ namespace DwkApi.Controllers
         public TimerModel ResetTimer(string id)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 return tt2.ResetTimer(id).SingleOrDefault();
             }
@@ -94,7 +95,7 @@ namespace DwkApi.Controllers
         public TimerModel AdjustTimer(AdjustParms parms)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 return tt2.AdjustTimer(parms.TimerKey, parms.SecondsOffset).SingleOrDefault();
             }
@@ -105,7 +106,7 @@ namespace DwkApi.Controllers
         public TimerModel RenameTimer(RenameParms parms)
         {
             string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
-            using (TT2DataContext tt2 = new TT2DataContext())
+            using (TT2DataContext tt2 = new TT2DataContext(connStr))
             {
                 return tt2.RenameTimer(parms.TimerKey, parms.NewName).SingleOrDefault();
             }
