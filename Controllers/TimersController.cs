@@ -81,5 +81,17 @@ namespace DwkApi.Controllers
             }
         }
 
+        [Route("api/timers/AddTimer")]
+        [HttpPost]
+        public TimerPage AddTimer(Timer tmr)
+        {
+            string connStr = Environment.GetEnvironmentVariable("DWKDBConnectionString");
+            using (DWKDBDataContext db = new DWKDBDataContext(connStr))
+            {
+                var result = db.InsertNewTimer(tmr.PageKey).SingleOrDefault();
+                return result;
+            }
+        }
+
     }
 }
